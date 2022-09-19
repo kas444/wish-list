@@ -8,7 +8,7 @@ export default function App() {
     <>
       <div>
         <header>
-          <h1 className="main-banner">KSIĄŻKI MARZEŃ</h1>
+          <h1 className="main-banner">MOJA LISTA KSIĄŻEK</h1>
         </header>
         <BookListView />
       </div>

@@ -13,7 +13,7 @@ root.render(
   <Provider store={store}>
     <BrowserRouter>
       <Routes>
-        <Route path="/wish-list/" element={<App />}>
+        <Route path="/lista-ksiazek-kasi/" element={<App />}>
         </Route>
       </Routes>
     </BrowserRouter>

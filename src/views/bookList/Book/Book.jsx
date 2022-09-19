@@ -1,16 +1,39 @@
-import React from 'react';
-// import { useSelector } from 'react-redux';
-// import { wishListSelectors } from '../../redux/wishListSlice';
+import React, { useState } from "react";
+import { useSelector } from 'react-redux';
+import { wishListActions, wishListSelectors } from '../../../redux/wishListSlice';
 
-export const Book = () => {
-    // const books = useSelector(wishListSelectors.selectBooks);
+export const Book = ({ book }) => {
+
+    const [checked, setChecked] = useState([]);
+
+    //TODO: think how to handle removing books from list
+    const handleCheck = ({ id }) => {
+        const newList = list.map((item) => {
+            if (item.id === id) {
+                const updatedItem = {
+                    ...item,
+                    isComplete: !item.isComplete,
+                };
+
+                return updatedItem;
+            }
+
+            return item;
+        });
+
+        setList(newList);
+
+    };
 
     return (
-        <>
-            <div className="question"></div>
-            <div className="list-group">
+        <tr>
+            <th scope="row">{book.id}</th>
+            <td>{book.title}</td>
+            <td>{book.author}</td>
+            <td>{book.published}</td>
+            <td><input value={book} type="checkbox" onChange={() => handleCheck(book.id)} /></td>
+        </tr>
 
-            </div>
-        </>
+
     );
 };

@@ -1,44 +1,42 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 import { Book } from './Book';
 import { useSelector, useDispatch } from 'react-redux';
 import { wishListActions, wishListSelectors } from '../../redux/wishListSlice';
 
 export const BookListView = () => {
-
   useEffect(() => {
-    startList();
+    showList();
   }, []);
-
-  const {
-    data
-  } = useSelector(wishListSelectors.rootSelector);
 
   const dispatch = useDispatch();
 
-  const startList = () => {
+  const showList = () => {
     dispatch(wishListActions.initializeList());
   };
 
+  const bookList = useSelector(wishListSelectors.selectActiveBooks);
+
   return (
+    //TODO: sortable array
     <>
-      <div>
-        <div className="row justify-content-center">
-          <div className="col-lg-8 col-md-10 col-sm-12">
-
-            <Book />
-
-            <div className="row"></div>
-            <div className="d-flex justify-content-between">
-
-
-              {/* <Button className="btn btn-secondary disabled" aria-disabled="true">wstecz</Button> */}
-
-
-            </div>
-          </div>
-        </div>
-      </div>
+      <div>Jeśli nie masz pomysłu na prezent dla mnie, skorzystaj z listy ponizej :)</div>
+      <table className="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Tytuł</th>
+            <th scope="col">Autor</th>
+            <th scope="col">Data publikacji</th>
+            <th scope="col">Usuń z listy</th>
+          </tr>
+        </thead>
+        <tbody>
+          {bookList.map(book => (
+            <Book key={book.id} book={book} />
+          ))}
+        </tbody>
+      </table>
     </>
-  );
 
+  );
 }

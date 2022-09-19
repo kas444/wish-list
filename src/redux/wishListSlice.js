@@ -2,7 +2,8 @@ import { createSlice, createSelector } from '@reduxjs/toolkit';
 import BOOKS from '../api/books';
 
 const initialState = {
-  data: BOOKS
+  data: BOOKS,
+  activeBooks: []
 };
 
 export const wishListSlice = createSlice({
@@ -10,11 +11,7 @@ export const wishListSlice = createSlice({
   initialState,
   reducers: {
     initializeList: (state) => {
-      state.isChecked = false;
-    },
-    checkItem: (state) => {
-      state.isChecked = true;
-      //how to remove from file?
+      state.activeBooks = state.data.filter(book => book.active === true);
     },
   },
 });
@@ -25,7 +22,12 @@ const rootSelector = (state) => state.wishList;
 
 export const wishListSelectors = {
   rootSelector,
-  selectBooks: createSelector(rootSelector, (state) => state.data),
+  selectActiveBooks: createSelector(rootSelector, (state) => state.activeBooks),
+  selectBook: createSelector(
+    rootSelector,
+    (_, bookId) => bookId,
+    (state, bookId) => state.data.find(book => book.id === bookId),
+  ),
 };
 
 export default wishListSlice.reducer;
